@@ -1,0 +1,214 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation",
+    "version": "1.0.0",
+    "title": "Swagger",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "movies",
+      "description": "Movies",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "auth",
+      "description": "Authentication",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/movies": {
+      "post": {
+        "tags": [
+          "movies"
+        ],
+        
+        "summary": "Add a new movie",
+        "description": "",
+        "operationId": "addMovie",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMovie"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Add Movie",
+            "schema": {
+              "$ref": "#/definitions/CreateMovieResponse"
+            }
+          },
+          "422": {
+            "description": "limit exceeded",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security": [{ "Bearer": [] }]
+
+      },
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Get movies of user",
+        "description": "",
+        "operationId": "getMovies",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          
+          "500": {
+            "description": "internal error"
+          }
+        },
+        "security": [{ "Bearer": [] }]
+
+      }
+    },
+    "/auth": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        
+        "summary": "Auth",
+        "description": "",
+        "operationId": "Auth",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthLoginResponse"
+            }
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "security": [{ "Bearer": [] }]
+
+      }
+    }
+  },
+  "securityDefinitions": {
+    
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer &lt;token>**"
+    }
+  },
+  "definitions": {
+    "CreateMovie": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateMovieResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthLogin": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "default": "basic-thomas"
+        },
+        "password": {
+          "type": "string",
+          "default":"sR-_pcoow-27-6PAwCD8"
+        }
+      }
+    },
+    "AuthLoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
